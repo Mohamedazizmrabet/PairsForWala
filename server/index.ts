@@ -1,7 +1,7 @@
 import express,{Request,Response} from 'express'
-import {disconnectDatabase,main,getAllPairs } from './db/prisma/script'
+import {disconnectDatabase,main,getAllPairs,createPairs } from './db/prisma/script'
 import cors from 'cors'
-
+import {generatePair} from  './functions/generate'
 const app = express();
 const port =3000
 app.use(cors())
@@ -17,10 +17,19 @@ app.get('/', async (req:Request, res:Response) => {
 })
 app.get('/genarate/pairs', async (req:Request, res:Response) =>{
     try {
-        const AllPairs=await getAllPairs()
-        res.json(AllPairs)
+        const students=await main()
+
+        const AllPairs =await getAllPairs()
+        console.log("AllPairs",AllPairs);
+        
+        const result= generatePair(students, AllPairs)
+        console.log(result);
+        createPairs(result)
+        res.json(result)
         
     } catch (error) {
+        console.log(error);
+        
         res.status(404).send("error getting students")
     }
 })
