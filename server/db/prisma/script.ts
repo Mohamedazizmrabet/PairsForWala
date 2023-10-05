@@ -27,7 +27,6 @@ export async function main() {
   //   "Farah Kharbech",
   //   "HamzaBen Jemaa",
   //   "Houssem Boulaares",
-  //   "Ilhem Souid",
   //   "ines jannedi",
   //   "inesse Omrani",
   //   "Khalil Bouarrouj",
