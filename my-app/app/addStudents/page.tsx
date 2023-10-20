@@ -83,11 +83,11 @@ const StudentForm: React.FC = () => {
       return newStudentNames.slice(0, value);
     });
   };
-  const handleSubmit =  (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit =  (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     event.preventDefault();
 
     try {
-       axios.post("http://localhost:3000/api/addStudents", {students:studentNames}).then((response)=>{
+       axios.post("http://localhost:3000/student/add", {students:studentNames}).then((response)=>{
       console.log("good")
        })
     } catch (error) {
@@ -140,7 +140,7 @@ const StudentForm: React.FC = () => {
         <button
           type="submit"
           className="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded"
-          onClick={()=>{handleSubmit}}
+          onClick={(ev)=>{handleSubmit(ev)}}
         >
           Submit
         </button>
