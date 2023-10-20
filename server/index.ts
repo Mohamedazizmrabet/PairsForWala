@@ -1,8 +1,11 @@
 import express,{Request,Response} from 'express'
-import {disconnectDatabase,main,getAllPairs,createPairs } from './db/prisma/script'
+import {disconnectDatabase,main,getAllPairs,createPairs,addStudentsToUserTable } from './db/prisma/script'
+import routeStudent from "./routes/students" 
 import cors from 'cors'
 import {generatePair} from  './functions/generate'
+
 const app = express();
+app.use(express.json())
 const port =3000
 app.use(cors())
 app.use(express.json())
@@ -33,6 +36,7 @@ app.get('/genarate/pairs', async (req:Request, res:Response) =>{
         res.status(404).send("error getting students")
     }
 })
+app.use("/student",routeStudent)
 app.listen(port, () => {
    console.log("server listening on port"+port);
    

@@ -2,12 +2,16 @@
 import Image from 'next/image'
 import PairsGenerate from './components/PairsGenerate'
 import React,{useState,useEffect} from 'react'
+ 
+import { useRouter } from 'next/navigation'
+
 interface Students{
   id : number,
   firstName : string,
   lastName : string
 }
 export default function Home() {
+  const route=useRouter()
   const [data,SetData]=useState([])
   console.log(data);
   const copyPairs = () => {
@@ -23,10 +27,18 @@ export default function Home() {
   };
 
   return (
-    <main className="p-4">
-       <button className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded" onClick={copyPairs}>
-          Copy Pairs
-        </button>
+    <main className="p-4 flex justify-evenly">
+      <h1 className="text-3xl font-semibold">Pairs Generator</h1>
+         <nav className="flex justify-between items-center mb-4">
+        <div className="flex space-x-4">
+          <button className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded transition duration-300 ease-in-out transform hover:scale-105" onClick={copyPairs}>
+            Copy Pairs
+          </button>
+          <button className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded transition duration-300 ease-in-out transform hover:scale-105" onClick={function(){route.push(`addStudents?search=?x=`)}}>
+            Add Students
+          </button>
+        </div>
+      </nav>
       <PairsGenerate setData={SetData} />
       <div className="grid grid-cols-2 gap-4">
         {data.map((pair:[], pairIndex) => (

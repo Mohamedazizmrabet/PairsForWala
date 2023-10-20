@@ -2,7 +2,7 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-async function addStudentsToUserTable(students: string[]) {
+export async function addStudentsToUserTable(students: string[]) {
   for (const student of students) {
     const [firstName, lastName] = student.split(" ");
     await prisma.user.create({
@@ -15,56 +15,8 @@ async function addStudentsToUserTable(students: string[]) {
 }
 
 export async function main() {
-  // const students = [
-  //   "Achref Bey",
-  //   "Adib Jaziri",
-  //   "Ahmed Souhaiel",
-  //   "Ahmed Boukhallout",
-  //   "Ali Maatoug",
-  //   "AslenBen othmen",
-  //   "Aymen Lahrech",
-  //   "Eya Attafi",
-  //   "Farah Kharbech",
-  //   "HamzaBen Jemaa",
-  //   "Houssem Boulaares",
-  //   "ines jannedi",
-  //   "inesse Omrani",
-  //   "Khalil Bouarrouj",
-  //   "Louay Sakli",
-  //   "Malek Aloui",
-  //   "Manel Bouzidi",
-  //   "Marwa Zbidi",
-  //   "Mohamed Chokri",
-  //   "Mohamed Gamoudi",
-  //   "Mohamed Mrabet",
-  //   "MohamedAli Ladhibi",
-  //   "MohamedAli Gharbi",
-  //   "MohamedAmine Hammami",
-  //   "MohamedAmine Guezmir",
-  //   "Mohamedamine Merdessi",
-  //   "MohamedAziz Chanoufi",
-  //   "MohamedFares Chaouali",
-  //   "Mouhib Aroua",
-  //   "Nourhene Abidi",
-  //   "Oussema Cherif",
-  //   "Rahma Aliani",
-  //   "Riadh Loudhaief",
-  //   "Saifeddine Mnasri",
-  //   "Salah Hlel",
-  //   "Salah Mbarki",
-  //   "Salmen Khelifi",
-  //   "Selim Hanchaoui",
-  //   "Selimben slim",
-  //   "Tasnime Ouertani",
-  //   "Tasnime Boukhaddeja",
-  //   "Wael Cherif",
-  //   "Wael Bedoui",
-  //   "Youssef naili",
-  //   "Zakaria askri",
-  //   "Bassem Ammar",
-  // ];
+  
 
-  //   await addStudentsToUserTable(students)
 
   const users = await prisma.user.findMany();
   return users;

@@ -19,7 +19,7 @@ function PairsGenerate(props:Props) {
     }
   return (
     <div>
-        <button className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded absolute right-0 top-1" onClick={generate}>Generate Pairs</button>
+        <button   className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded mb-4 transition duration-300 ease-in-out transform hover:scale-105" onClick={generate}>Generate Pairs</button>
     </div>
   )
 }
