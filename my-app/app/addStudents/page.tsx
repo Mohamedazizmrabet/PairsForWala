@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useSearchParams } from "next/navigation";
 import axios  from "axios";
+import {showErrorToast,showSuccessToast}from "../../ultils/toast"
 interface Student {
   firstName: string;
   middleName: string;
@@ -10,31 +11,7 @@ interface Student {
 }
 
 const StudentForm: React.FC = () => {
-  useEffect(() => {
-    let searchParam = searchParams.get("search") ?? ""; // If searchParam is null, default to an empty string
-    let arrOfStudents: any[] = [];
-    console.log("param ", searchParam);
-    console.log(searchParam.indexOf("?"));
-    let numberS = searchParam.slice(
-      searchParam.indexOf("?") + 3,
-      searchParam.length
-    );
-    console.log(numberS);
-    searchParam = searchParam.slice(0, searchParam.indexOf("?"));
-
-    try {
-      arrOfStudents = JSON.parse(searchParam);
-
-      if (studentNames) {
-        setStudentNames(arrOfStudents);
-        console.log(arrOfStudents);
-        setNumberOfStudents(parseInt(numberS));
-      }
-    } catch (error) {
-      // Handle JSON parsing error, if necessary
-      console.error("Error parsing JSON:", error);
-    }
-  }, []);
+  
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -62,8 +39,7 @@ const StudentForm: React.FC = () => {
     console.log(updatedStudentNames);
 
     setStudentNames(updatedStudentNames);
-    let jsonTheArray = JSON.stringify(updatedStudentNames);
-    router.replace(`/addStudents?search=${jsonTheArray}?x=${numberOfStudents}`);
+    
   };
 
   const handleNumberOfStudentsChange = (
@@ -85,13 +61,20 @@ const StudentForm: React.FC = () => {
   };
   const handleSubmit =  (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     event.preventDefault();
-
     try {
        axios.post("http://localhost:3000/student/add", {students:studentNames}).then((response)=>{
-      console.log("good")
+        console.log(response);
+        
+        if(!response){
+          showErrorToast("error try again")
+        }
+        else{
+
+          showSuccessToast("the students has been added successfully")
+        }
        })
     } catch (error) {
-      console.error("Error:", error);
+     
     }
   };
   return (
